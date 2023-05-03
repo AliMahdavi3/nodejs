@@ -1,4 +1,4 @@
-const url = "www.codeyad";
+const url = "www.codeyad.com";
 
 function logger (message){
     // send a request
@@ -13,9 +13,12 @@ function logger (message){
 //     logger,
 // }
 
-module.exports = {
-    endPoint : url,
-    log : logger,
-}
+// module.exports = {
+//     endPoint : url,
+//     log : logger,
+// }
 
-console.log(module);
+// console.log(module);
+
+exports.log = logger;
+exports.endPoint = url;

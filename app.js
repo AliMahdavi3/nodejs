@@ -10,3 +10,6 @@
 
 // ====================================================================================== //
 
+const logger = require("./logger");
+logger.log("I Will Become Rich");
+console.log(logger.endPoint);
