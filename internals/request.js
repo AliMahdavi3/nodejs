@@ -7,4 +7,4 @@ function send(data, text){
     console.log(`Writing ${data} Is ${text}`);
 }
 
-export {send, encrypt}
+module.exports = {send, encrypt}
