@@ -1,16 +1,14 @@
-const EmittEvent = require("./emitter"); 
+const http = require("http");
 
-const emitter = new EmittEvent();
+const PORT = 3001;
 
-emitter.on("Phone Called", function(value){
-    console.log("Answer Phone Call From " + value.phoneNumber);
-})
+const server = http.createServer((req, res) => {
+    res.writeHead(200, {
+        "Content-Type" : "application/json",
+    });
+    res.end(JSON.stringify({id : 1, text : "I WILL BECOME RICH...!"}));
+});
 
-emitter.emitterEvent();
- 
-
-// ==================================================== \\
-
-// npm list = showing dependencies list
-// npm view { axios } dependencies 
-// npm run dev
+server.listen(PORT, ()=>{
+    console.log(`Listening on PORT ${PORT}`);
+});
