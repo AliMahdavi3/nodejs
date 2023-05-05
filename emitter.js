@@ -5,7 +5,7 @@ class EmittEvent extends EventEmitter{
         this.emit("Phone Called", {
             id : 1, 
             name : "Ali",
-            number : 09012559469,
+            phoneNumber : "09012559469",
         });
     }
 }
