@@ -10,3 +10,6 @@ emitter.emitterEvent();
  
 
 // ==================================================== \\
+
+// npm list = showing dependencies list
+// npm view { axios } dependencies 
