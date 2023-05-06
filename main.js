@@ -3,7 +3,7 @@ const http = require("http");
 const PORT = 3001;
 const server = http.createServer();
 
-const hope = [
+let hope = [
     {id : 1, text : "I WILL DEFENITLY BECOME RICH...!"},
     {id : 2, text : "I WILL DEFENITLY BECOME BEST...!"},
     {id : 3, text : "I WILL DEFENITLY BECOME GREATE...!"},
@@ -13,7 +13,15 @@ server.on("request", (req, res) => {
 
     const items = req.url.split("/");
 
-    if(items[1] === "hope"){
+    if(items[1] === "hope" && req.method === "POST"){
+        req.on("data", (data)=>{
+            console.log(data.toString());
+            const newData = data.toString();
+            hope.push(JSON.parse(newData));
+        });
+    };
+
+    if(items[1] === "hope" && req.method === "GET"){
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
         if(items.length == 3) {
@@ -22,7 +30,7 @@ server.on("request", (req, res) => {
         } else {
             res.end(JSON.stringify(hope));
         }
-    } else if (items[1] === "content") {
+    } else if (items[1] === "content" && req.method === "GET") {
         res.setHeader("Content-Type", "text-html");
         res.write("<html>");
         res.write("<body>");
