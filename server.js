@@ -1,23 +1,5 @@
 // don't forget to change filename in nodemon package.json
 
-// const express = require("express");
-
-// const app = express();
-
-// const PORT = 3002;
-
-// app.get("/", (req, res) => {
-//     res.send("I WILL BECOME RICH...!");
-// });
-
-// app.get("/message", (req, res) => {
-//     res.send("<h1>LIFT IS BEAUTIFL</h1>");
-// });
-
-// app.listen(PORT, ()=>{
-//     console.log(`listening on port ${PORT}`);
-// });
-
 const express = require("express");
 const app = express();
 const PORT = 3000;
@@ -38,14 +20,21 @@ const array = [
         name : "Rayhaneh",
         lastName : "Mahdavi"
     },
-]
+];
+
+app.use((req, res, next) => {
+    const start = Date.now();
+    next();
+    const delta = Date.now() - start;
+    console.log(`${req.method} ${req.url} ${delta}ms`);
+});
 
 app.get("/", (req, res) => {
     res.send("<h1>SUCCESS COME FROM PATIONS...!</h1>");
 });
 
 app.get("/message", (req, res) => {
-    res.send("<h1>NOTING CAN STOP US...!</h1>");
+    res.send(array);
 });
 
 app.get("/message/:messageId", (req, res) => {
