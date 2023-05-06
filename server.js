@@ -2,22 +2,22 @@
 
 const express = require("express");
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
-const array = [
+let array = [
+    {
+        id : 0,
+        firstName : "Ali",
+        lastName : "Mahdavi"
+    },
     {
         id : 1,
-        name : "Ali",
+        firstName : "Reza",
         lastName : "Mahdavi"
     },
     {
         id : 2,
-        name : "Reza",
-        lastName : "Mahdavi"
-    },
-    {
-        id : 3,
-        name : "Rayhaneh",
+        firstName : "Rayhaneh",
         lastName : "Mahdavi"
     },
 ];
@@ -29,12 +29,32 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.url} ${delta}ms`);
 });
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
     res.send("<h1>SUCCESS COME FROM PATIONS...!</h1>");
 });
 
 app.get("/message", (req, res) => {
     res.send(array);
+});
+
+app.post("/message", (req, res) => {
+    
+    if(!req.body.name){
+        return  res.status(404).json({
+            error : "Array Not found...!"
+        });
+    }
+    let newArray = {
+        name : req.body.name,
+        id : array.length,
+    };
+
+    array.push(newArray);
+
+    res.json(newArray);
+
 });
 
 app.get("/message/:messageId", (req, res) => {
