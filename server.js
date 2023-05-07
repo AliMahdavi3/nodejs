@@ -39,6 +39,18 @@ app.get("/message", (req, res) => {
     res.send(array);
 });
 
+app.get("/message/:messageId", (req, res) => {
+    const messageId = req.params.messageId;
+    const items = array[messageId];
+    if (items) {
+        res.json(items);
+    } else {
+        res.status(404).json({
+            error : "Object does not found...!",
+        });
+    }
+});
+
 app.post("/message", (req, res) => {
     
     if(!req.body.name){
@@ -57,17 +69,25 @@ app.post("/message", (req, res) => {
 
 });
 
-app.get("/message/:messageId", (req, res) => {
-    const messageId = req.params.messageId;
-    const items = array[messageId];
-    if (items) {
-        res.json(items);
-    } else {
-        res.status(404).json({
-            error : "Object does not found...!",
+app.put("/message/:messageId", (req, res) => {
+    
+    const item = array[parseInt(req.params.messageId)]
+    if(!item) {
+        return res.status(404).json({
+            error : "Item Not Found...!"
         });
-    }
+    };
+    if(!req.body.name){
+        return res.status(404).json({
+            error : "Your Value Is Empty...!"
+        });
+    };
+
+    item.firstName = req.body.name;
+    res.send(item);
+
 });
+
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
