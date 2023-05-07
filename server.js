@@ -6,18 +6,23 @@ const PORT = 3001;
 
 let array = [
     {
-        id : 0,
+        id : 1,
         firstName : "Ali",
         lastName : "Mahdavi"
     },
     {
-        id : 1,
+        id : 2,
         firstName : "Reza",
         lastName : "Mahdavi"
     },
     {
-        id : 2,
+        id : 3,
         firstName : "Rayhaneh",
+        lastName : "Mahdavi"
+    },
+    {
+        id : 4,
+        firstName : "Mahdie",
         lastName : "Mahdavi"
     },
 ];
@@ -86,6 +91,21 @@ app.put("/message/:messageId", (req, res) => {
     item.firstName = req.body.name;
     res.send(item);
 
+});
+
+app.delete("/message/:messageId", (req, res) => {
+    
+    const item = array.find(f => f.id === parseInt(req.params.messageId));
+    if(!item) {
+        return res.status(404).json({ 
+            error : "Item was not found...!"
+        })
+    };
+
+    const itemIndex = array.indexOf(item);
+    array.splice(itemIndex, 1);
+
+    res.send(item);
 });
 
 
