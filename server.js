@@ -1,31 +1,7 @@
-// don't forget to change filename in nodemon package.json
-
+const messageController = require("./controllers/messageController");
 const express = require("express");
 const app = express();
 const PORT = 3001;
-
-let array = [
-    {
-        id : 1,
-        firstName : "Ali",
-        lastName : "Mahdavi"
-    },
-    {
-        id : 2,
-        firstName : "Reza",
-        lastName : "Mahdavi"
-    },
-    {
-        id : 3,
-        firstName : "Rayhaneh",
-        lastName : "Mahdavi"
-    },
-    {
-        id : 4,
-        firstName : "Mahdie",
-        lastName : "Mahdavi"
-    },
-];
 
 app.use((req, res, next) => {
     const start = Date.now();
@@ -36,77 +12,15 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// controllers 
 app.get("/", (req, res) => {
     res.send("<h1>SUCCESS COME FROM PATIONS...!</h1>");
 });
-
-app.get("/message", (req, res) => {
-    res.send(array);
-});
-
-app.get("/message/:messageId", (req, res) => {
-    const messageId = req.params.messageId;
-    const items = array[messageId];
-    if (items) {
-        res.json(items);
-    } else {
-        res.status(404).json({
-            error : "Object does not found...!",
-        });
-    }
-});
-
-app.post("/message", (req, res) => {
-    
-    if(!req.body.name){
-        return  res.status(404).json({
-            error : "Array Not found...!"
-        });
-    }
-    let newArray = {
-        name : req.body.name,
-        id : array.length,
-    };
-
-    array.push(newArray);
-
-    res.json(newArray);
-
-});
-
-app.put("/message/:messageId", (req, res) => {
-    
-    const item = array[parseInt(req.params.messageId)]
-    if(!item) {
-        return res.status(404).json({
-            error : "Item Not Found...!"
-        });
-    };
-    if(!req.body.name){
-        return res.status(404).json({
-            error : "Your Value Is Empty...!"
-        });
-    };
-
-    item.firstName = req.body.name;
-    res.send(item);
-
-});
-
-app.delete("/message/:messageId", (req, res) => {
-    
-    const item = array.find(f => f.id === parseInt(req.params.messageId));
-    if(!item) {
-        return res.status(404).json({ 
-            error : "Item was not found...!"
-        })
-    };
-
-    const itemIndex = array.indexOf(item);
-    array.splice(itemIndex, 1);
-
-    res.send(item);
-});
+app.get("/message", messageController.getMessage);
+app.get("/message/:messageId", messageController.getMessageById);
+app.post("/message", messageController.postMessage);
+app.put("/message/:messageId", messageController.putMessage);
+app.delete("/message/:messageId", messageController.deleteMessage);
 
 
 app.listen(PORT, () => {
