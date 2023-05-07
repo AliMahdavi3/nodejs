@@ -1,6 +1,6 @@
-
+const path = require("path")
 function getFriends (req, res) {
-    res.send("<h1>SUCCESS COME FROM PATIONS...!</h1>");
+    res.sendFile(path.join(__dirname, "..", "public", "article-1.jpg"));
 };
 
 function postFriends (req, res) {
