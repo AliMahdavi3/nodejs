@@ -1,6 +1,10 @@
-const path = require("path")
+const path = require("path");
 function getFriends (req, res) {
-    res.sendFile(path.join(__dirname, "..", "public", "article-1.jpg"));
+    // res.sendFile(path.join(__dirname, "..", "public", "article-1.jpg"));
+    res.render("friends", {
+        friends : "Ali mahdavi",
+        title : "Message To My Friends...!",        
+    });
 };
 
 function postFriends (req, res) {
