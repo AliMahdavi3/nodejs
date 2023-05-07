@@ -19,7 +19,7 @@ function getMessageById (req, res) {
 function postMessage (req, res) {
     
     if(!req.body.name){
-        return  res.status(404).json({
+        return  res.status(400).json({
             error : "Array Not found...!"
         });
     }
